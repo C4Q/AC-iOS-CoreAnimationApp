@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Layer Property View Controller-->
+        <scene sceneID="Q0a-bj-ErC">
+            <objects>
+                <viewController storyboardIdentifier="LayerPropertyViewController" id="3T8-UD-dXN" customClass="LayerPropertyViewController" customModule="CoreAnimationApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="QTc-sR-2kD">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dog" translatesAutoresizingMaskIntoConstraints="NO" id="T5R-iR-czS">
+                                <rect key="frame" x="38" y="60" width="300" height="259"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UQi-VA-bKc">
+                                <rect key="frame" x="298" y="617" width="57" height="30"/>
+                                <state key="normal" title="Animate"/>
+                                <connections>
+                                    <action selector="animateWithButton:" destination="3T8-UD-dXN" eventType="touchUpInside" id="a95-fT-dll"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i3J-xl-aow">
+                                <rect key="frame" x="20" y="617" width="39" height="30"/>
+                                <state key="normal" title="Reset"/>
+                                <connections>
+                                    <action selector="reset" destination="3T8-UD-dXN" eventType="touchUpInside" id="xLy-jc-leT"/>
+                                </connections>
+                            </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="w7c-02-7c5">
+                                <rect key="frame" x="0.0" y="339" width="375" height="270"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PropertyCell" id="nIM-2e-ZBq">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="nIM-2e-ZBq" id="jw5-jW-7Te">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="Lgt-Hq-b6A" firstAttribute="trailing" secondItem="UQi-VA-bKc" secondAttribute="trailing" constant="20" id="0kR-fY-V8m"/>
+                            <constraint firstItem="w7c-02-7c5" firstAttribute="top" secondItem="T5R-iR-czS" secondAttribute="bottom" constant="20" id="7aL-rz-Kb6"/>
+                            <constraint firstItem="T5R-iR-czS" firstAttribute="height" secondItem="Lgt-Hq-b6A" secondAttribute="height" multiplier="0.4" id="F5O-EY-mxh"/>
+                            <constraint firstItem="Lgt-Hq-b6A" firstAttribute="bottom" secondItem="i3J-xl-aow" secondAttribute="bottom" constant="20" id="JEM-eV-2Kd"/>
+                            <constraint firstItem="T5R-iR-czS" firstAttribute="centerX" secondItem="QTc-sR-2kD" secondAttribute="centerX" id="XIg-3d-xDV"/>
+                            <constraint firstItem="T5R-iR-czS" firstAttribute="top" secondItem="Lgt-Hq-b6A" secondAttribute="top" constant="40" id="YS6-OG-JBT"/>
+                            <constraint firstItem="Lgt-Hq-b6A" firstAttribute="bottom" secondItem="UQi-VA-bKc" secondAttribute="bottom" constant="20" id="agw-2n-yJj"/>
+                            <constraint firstItem="UQi-VA-bKc" firstAttribute="top" secondItem="w7c-02-7c5" secondAttribute="bottom" constant="8" id="eA5-Ub-nKl"/>
+                            <constraint firstItem="i3J-xl-aow" firstAttribute="leading" secondItem="Lgt-Hq-b6A" secondAttribute="leading" constant="20" id="ht0-db-l0I"/>
+                            <constraint firstItem="T5R-iR-czS" firstAttribute="width" secondItem="Lgt-Hq-b6A" secondAttribute="width" multiplier="0.8" id="rNa-6e-MNW"/>
+                            <constraint firstItem="w7c-02-7c5" firstAttribute="trailing" secondItem="Lgt-Hq-b6A" secondAttribute="trailing" id="vIA-wn-dfF"/>
+                            <constraint firstItem="w7c-02-7c5" firstAttribute="leading" secondItem="Lgt-Hq-b6A" secondAttribute="leading" id="wcI-LT-XDx"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Lgt-Hq-b6A"/>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="T5R-iR-czS" id="pk1-Bs-LC2"/>
+                        <outlet property="tableView" destination="w7c-02-7c5" id="cuf-cX-Lsl"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RrA-1o-e2f" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="44" y="-197.45127436281859"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="dog" width="369" height="269"/>
+    </resources>
+</document>
