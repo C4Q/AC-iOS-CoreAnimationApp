@@ -257,15 +257,22 @@ extension LayerPropertyViewController {
     
     // 3D Translation using CAKeyframeAnimation
     func animateTranslation() {
-        let positionValue: CGFloat = 100
+        let toTopLeft = CATransform3DMakeTranslation(-view.layer.position.x, -view.layer.position.y, 0)     // top left
+        let toBottomRight = CATransform3DMakeTranslation(view.layer.position.x, view.layer.position.y, 0)   // bottom right
+        let toTopRight = CATransform3DMakeTranslation(view.layer.position.x, -view.layer.position.y, 0)     // top right
+        let toBottomLeft = CATransform3DMakeTranslation(-view.layer.position.x, view.layer.position.y, 0)   // bottom left
         let keyframeAnimation = CAKeyframeAnimation(keyPath: "transform")
-        keyframeAnimation.values = [CATransform3DMakeTranslation(-positionValue, -positionValue, 0),// top left corner
-                                    CATransform3DMakeTranslation(positionValue, positionValue, 0),  // bottom right corner
-                                    CATransform3DMakeTranslation(-positionValue, positionValue, 0), // bottom left corner
-                                    CATransform3DMakeTranslation(positionValue, -positionValue, 0), // top right corner
-                                    CATransform3DIdentity] // original position
-        keyframeAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
-        keyframeAnimation.duration = 2.0
+        keyframeAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        keyframeAnimation.values = [CATransform3DIdentity,
+                                    toTopLeft,
+                                    CATransform3DIdentity,
+                                    toTopRight,
+                                    CATransform3DIdentity,
+                                    toBottomLeft,
+                                    CATransform3DIdentity,
+                                    toBottomRight,
+                                    CATransform3DIdentity]
+        keyframeAnimation.duration = 4.0
         keyframeAnimation.repeatCount = Float.infinity
         imageView.layer.add(keyframeAnimation, forKey: nil)
     }
@@ -287,6 +294,17 @@ extension LayerPropertyViewController {
         animation.duration = 2.0
         imageView.layer.add(animation, forKey: nil)
         imageView.layer.contents = UIImage(named:"lion")?.cgImage
+    }
+}
+
+// You can implement the animation's delegate to get stop and start events
+extension LayerPropertyViewController: CAAnimationDelegate {
+    func animationDidStart(_ anim: CAAnimation) {
+        print("animationDidStart: \(anim.description)")
+    }
+    
+    func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
+        print("animationDidStop: \(anim.description) finshed: \(flag)")
     }
 }
 
