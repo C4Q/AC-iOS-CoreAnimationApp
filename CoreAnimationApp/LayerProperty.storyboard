@@ -53,6 +53,13 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yx1-iR-oRg">
+                                <rect key="frame" x="173" y="617" width="30" height="30"/>
+                                <state key="normal" title="II"/>
+                                <connections>
+                                    <action selector="pause" destination="3T8-UD-dXN" eventType="touchUpInside" id="eKq-jM-YOa"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -62,10 +69,12 @@
                             <constraint firstItem="T5R-iR-czS" firstAttribute="centerX" secondItem="QTc-sR-2kD" secondAttribute="centerX" id="XIg-3d-xDV"/>
                             <constraint firstItem="T5R-iR-czS" firstAttribute="top" secondItem="Lgt-Hq-b6A" secondAttribute="top" constant="40" id="YS6-OG-JBT"/>
                             <constraint firstItem="Lgt-Hq-b6A" firstAttribute="bottom" secondItem="UQi-VA-bKc" secondAttribute="bottom" constant="20" id="agw-2n-yJj"/>
+                            <constraint firstItem="yx1-iR-oRg" firstAttribute="centerX" secondItem="QTc-sR-2kD" secondAttribute="centerX" id="arT-a9-zlY"/>
                             <constraint firstItem="UQi-VA-bKc" firstAttribute="top" secondItem="w7c-02-7c5" secondAttribute="bottom" constant="8" id="eA5-Ub-nKl"/>
                             <constraint firstItem="i3J-xl-aow" firstAttribute="leading" secondItem="Lgt-Hq-b6A" secondAttribute="leading" constant="20" id="ht0-db-l0I"/>
                             <constraint firstItem="T5R-iR-czS" firstAttribute="width" secondItem="Lgt-Hq-b6A" secondAttribute="width" multiplier="0.8" id="rNa-6e-MNW"/>
                             <constraint firstItem="w7c-02-7c5" firstAttribute="trailing" secondItem="Lgt-Hq-b6A" secondAttribute="trailing" id="vIA-wn-dfF"/>
+                            <constraint firstItem="Lgt-Hq-b6A" firstAttribute="bottom" secondItem="yx1-iR-oRg" secondAttribute="bottom" constant="20" id="w9x-sx-L0b"/>
                             <constraint firstItem="w7c-02-7c5" firstAttribute="leading" secondItem="Lgt-Hq-b6A" secondAttribute="leading" id="wcI-LT-XDx"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Lgt-Hq-b6A"/>

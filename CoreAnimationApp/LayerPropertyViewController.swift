@@ -120,6 +120,24 @@ class LayerPropertyViewController: UIViewController {
         imageView.layer.removeAllAnimations()
         defaultLayerValues()
     }
+    
+    @IBAction func pause() {
+        // pause
+        if imageView.layer.speed == 1 {
+            let pausedTime = imageView.layer.convertTime(CACurrentMediaTime(), from: nil)
+            imageView.layer.speed = 0
+            imageView.layer.timeOffset = pausedTime
+        }
+        // resume
+        else {
+            let pausedTime = imageView.layer.timeOffset
+            imageView.layer.speed = 1
+            imageView.layer.timeOffset = 0
+            imageView.layer.beginTime = 0
+            let timeSincePause = imageView.layer.convertTime(CACurrentMediaTime(), from: nil) - pausedTime
+            imageView.layer.beginTime = timeSincePause
+        }
+    }
 }
 
 extension LayerPropertyViewController: UITableViewDataSource {
@@ -190,7 +208,7 @@ extension LayerPropertyViewController {
         offsetAnimation.toValue = CGSize(width: 5.0, height: 5.0)
         imageView.layer.shadowOffset = CGSize(width: 5.0, height: 5.0)
         
-        // creat group animation for shadow animation
+        // create group animation for shadow animation
         let groupAnimation = CAAnimationGroup()
         groupAnimation.animations = [opacityAnimation, offsetAnimation]
         groupAnimation.duration = 1.0 
