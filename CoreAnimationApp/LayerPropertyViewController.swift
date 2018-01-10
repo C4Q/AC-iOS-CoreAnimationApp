@@ -15,19 +15,18 @@ enum PropertyKeys: String {
     case CornerRadius = "Corner Radius"
     case Shadow = "Shadow"
     case Opacity = "Opacity"
+    case SwapImage = "Swap Image"
+    case Position = "Position"
     
     // are 3D Transforms
     case RotationX = "Rotation X"
     case RotationY = "Rotation Y"
     case RotationZ = "Rotation Z"
     case Scale = "Scale"
-    case SwapImage = "Swap Image"
-    case Position = "Position"
-    // TODO: translation and contents
+    case Translation = "Translation"
 }
 
 class LayerPropertyViewController: UIViewController {
-    
     // data model for cells - a list of Layer Animatabel Properties
     let properties = [PropertyKeys.BorderColor.rawValue,
                       PropertyKeys.BorderWidth.rawValue,
@@ -37,6 +36,7 @@ class LayerPropertyViewController: UIViewController {
                       PropertyKeys.RotationX.rawValue,
                       PropertyKeys.RotationY.rawValue,
                       PropertyKeys.RotationZ.rawValue,
+                      PropertyKeys.Translation.rawValue,
                       PropertyKeys.SwapImage.rawValue,
                       PropertyKeys.Scale.rawValue,
                       PropertyKeys.Position.rawValue]
@@ -57,6 +57,7 @@ class LayerPropertyViewController: UIViewController {
     }
     
     func defaultLayerValues() {
+        imageView.layer.masksToBounds = true
         imageView.layer.borderWidth = 1.0
         imageView.layer.borderColor = UIColor.black.cgColor
         
@@ -102,6 +103,8 @@ class LayerPropertyViewController: UIViewController {
             animateRotationZ()
         case PropertyKeys.Scale.rawValue:
             animateScale()
+        case PropertyKeys.Translation.rawValue:
+            animateTranslation()
             
         case PropertyKeys.SwapImage.rawValue:
             animateSwapImage()
@@ -157,6 +160,15 @@ extension LayerPropertyViewController {
         animation.duration = 0.5
         imageView.layer.add(animation, forKey: nil)
         imageView.layer.borderWidth = 10.0
+    }
+    
+    func animateCornerRadius() {
+        let animation = CABasicAnimation(keyPath: "cornerRadius")
+        animation.fromValue = 0
+        animation.toValue = imageView.bounds.width/2
+        animation.duration = 3.0
+        imageView.layer.add(animation, forKey: nil)
+        imageView.layer.cornerRadius = imageView.bounds.width/2
     }
     
     func animateShadow() {
@@ -228,15 +240,6 @@ extension LayerPropertyViewController {
         imageView.layer.add(animation, forKey: nil)
     }
     
-    func animateCornerRadius() {
-        let animation = CABasicAnimation(keyPath: "cornerRadius")
-        animation.fromValue = 0
-        animation.toValue = 20
-        animation.duration = 1.0
-        imageView.layer.add(animation, forKey: nil)
-        imageView.layer.cornerRadius = 20
-    }
-    
     func animateScale() {
         let animation = CABasicAnimation(keyPath: "transform.scale")
         
@@ -250,6 +253,21 @@ extension LayerPropertyViewController {
         animation.duration = 2.0
         animation.repeatCount = Float.infinity
         imageView.layer.add(animation, forKey: nil)
+    }
+    
+    // 3D Translation using CAKeyframeAnimation
+    func animateTranslation() {
+        let positionValue: CGFloat = 100
+        let keyframeAnimation = CAKeyframeAnimation(keyPath: "transform")
+        keyframeAnimation.values = [CATransform3DMakeTranslation(-positionValue, -positionValue, 0),// top left corner
+                                    CATransform3DMakeTranslation(positionValue, positionValue, 0),  // bottom right corner
+                                    CATransform3DMakeTranslation(-positionValue, positionValue, 0), // bottom left corner
+                                    CATransform3DMakeTranslation(positionValue, -positionValue, 0), // top right corner
+                                    CATransform3DIdentity] // original position
+        keyframeAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+        keyframeAnimation.duration = 2.0
+        keyframeAnimation.repeatCount = Float.infinity
+        imageView.layer.add(keyframeAnimation, forKey: nil)
     }
     
     func animatePosition() {
