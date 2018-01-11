@@ -17,6 +17,7 @@ enum PropertyKeys: String {
     case Opacity = "Opacity"
     case SwapImage = "Swap Image"
     case Position = "Position"
+    case FlipCard = "Flip Card"
     
     // are 3D Transforms
     case RotationX = "Rotation X"
@@ -39,7 +40,8 @@ class LayerPropertyViewController: UIViewController {
                       PropertyKeys.Translation.rawValue,
                       PropertyKeys.SwapImage.rawValue,
                       PropertyKeys.Scale.rawValue,
-                      PropertyKeys.Position.rawValue]
+                      PropertyKeys.Position.rawValue,
+                      PropertyKeys.FlipCard.rawValue]
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var imageView: UIImageView!
@@ -68,6 +70,8 @@ class LayerPropertyViewController: UIViewController {
         imageView.layer.cornerRadius = 0
         
         imageView.layer.contents = UIImage(named:"dog")?.cgImage
+        
+        imageView.layer.backgroundColor = UIColor.yellow.cgColor
     }
     
     // share instance of self 
@@ -109,6 +113,8 @@ class LayerPropertyViewController: UIViewController {
             animateSwapImage()
         case PropertyKeys.Position.rawValue:
             animatePosition()
+        case PropertyKeys.FlipCard.rawValue:
+            animateFlippingCard()
             
         default:
             break
@@ -247,6 +253,58 @@ extension LayerPropertyViewController {
         animation.duration = 5.0 // seconds
         animation.repeatCount = Float.infinity
         imageView.layer.add(animation, forKey: nil)
+    }
+    
+    func animateFlippingCard() {
+        let results = getFlipValues()
+        let fromImage = results.fromValue
+        let toImage = results.toValue
+        
+        let angleInRadians: CGFloat = CGFloat(.pi * 1.0)
+        let toRotation = CATransform3DMakeRotation(angleInRadians, 0, 1, 0)
+        let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation.y")
+        rotationAnimation.fromValue = CATransform3DIdentity
+        rotationAnimation.byValue = toRotation
+        
+        let backgroundColor1 = CABasicAnimation(keyPath: "backgroundColor")
+        backgroundColor1.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
+        backgroundColor1.fromValue = UIColor.white.cgColor
+        backgroundColor1.toValue = UIColor.yellow.cgColor
+
+        let contentsAnimation1 = CABasicAnimation(keyPath: "contents")
+        contentsAnimation1.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
+        contentsAnimation1.fromValue = fromImage
+        contentsAnimation1.toValue = toImage
+        
+        let backgroundColor2 = CABasicAnimation(keyPath: "backgroundColor")
+        backgroundColor2.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
+        backgroundColor2.fromValue = UIColor.yellow.cgColor
+        backgroundColor2.toValue = UIColor.white.cgColor
+        
+        let flipGroupAnimation = CAAnimationGroup()
+        flipGroupAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
+        flipGroupAnimation.animations = [rotationAnimation, backgroundColor1, contentsAnimation1, backgroundColor2]
+        flipGroupAnimation.duration = 0.3
+        imageView.layer.add(flipGroupAnimation, forKey: nil)
+        imageView.layer.contents = toImage
+        imageView.layer.transform = toRotation
+    }
+    
+    func getFlipValues() -> (fromValue: CGImage, toValue: CGImage) {
+        var toValue: CGImage!
+        var fromValue: CGImage!
+        let cgImage = imageView.layer.contents as! CGImage
+        let dogImage = UIImage(named:"dog")!.cgImage!
+        if cgImage == dogImage  {
+            toValue = UIImage(named:"lion")?.cgImage
+            fromValue = UIImage(named:"dog")?.cgImage
+            imageView.layer.backgroundColor = UIColor.white.cgColor
+        } else {
+            toValue = UIImage(named:"dog")?.cgImage
+            fromValue = UIImage(named:"lion")?.cgImage
+            imageView.layer.backgroundColor = UIColor.yellow.cgColor
+        }
+        return (fromValue, toValue)
     }
     
     func animateRotationZ() {
