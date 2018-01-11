@@ -19,7 +19,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dog" translatesAutoresizingMaskIntoConstraints="NO" id="T5R-iR-czS">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dog" translatesAutoresizingMaskIntoConstraints="NO" id="T5R-iR-czS">
                                 <rect key="frame" x="38" y="60" width="300" height="300"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="T5R-iR-czS" secondAttribute="height" multiplier="1:1" id="e2s-bc-C4S"/>

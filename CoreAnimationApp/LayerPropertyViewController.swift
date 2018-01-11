@@ -57,7 +57,6 @@ class LayerPropertyViewController: UIViewController {
     }
     
     func defaultLayerValues() {
-        imageView.layer.masksToBounds = true
         imageView.layer.borderWidth = 1.0
         imageView.layer.borderColor = UIColor.black.cgColor
         
@@ -181,6 +180,7 @@ extension LayerPropertyViewController {
     }
     
     func animateCornerRadius() {
+        imageView.layer.masksToBounds = true
         let animation = CABasicAnimation(keyPath: "cornerRadius")
         animation.fromValue = 0
         animation.toValue = imageView.bounds.width/2
@@ -192,6 +192,7 @@ extension LayerPropertyViewController {
     func animateShadow() {
         // animate shadowOpacity
         // default opacity is 0
+        imageView.layer.masksToBounds = false
         let opacityAnimation = CABasicAnimation(keyPath: "shadowOpacity")
         opacityAnimation.fromValue = 0 // minimum value
         opacityAnimation.toValue = 1 // maximum value
